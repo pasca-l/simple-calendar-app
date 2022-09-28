@@ -1,6 +1,8 @@
 library calendar_widget;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:calendar_widget/calendar_provider.dart';
 import 'package:calendar_widget/month_calendar.dart';
 import 'package:calendar_widget/day_calendar.dart';
 
@@ -21,8 +23,11 @@ class _CalendarState extends State<Calendar> {
         bottom: true,
         left: true,
         right: true,
-        child: CalendarPage())
-      ,
+        child: ChangeNotifierProvider(
+          create: (_) => CalendarProvider(),
+          child: CalendarPage(),
+        )
+      ),
     );
   }
 }
@@ -63,7 +68,6 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  late DateTime _focusDay;
   bool _viewDay = false;
 
   @override
@@ -86,16 +90,16 @@ class _CalendarPageState extends State<CalendarPage> {
     
               TextButton(
                 onPressed: () {
-                  setState(() {
-                    _focusDay = DateTime.now();
-                  });
+                  context.read<CalendarProvider>().updateFocusedDate(
+                    DateTime.now()
+                  );
                 },
                 child: Text("Today"),
               ),
     
               TextButton(
                 onPressed: () {},
-                child: Text("Calender"),
+                child: Text(context.watch<CalendarProvider>().focusedDate.toString()),
               ),
     
               TextButton(

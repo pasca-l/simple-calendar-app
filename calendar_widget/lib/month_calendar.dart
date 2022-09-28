@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:calendar_widget/calendar_provider.dart';
 import 'package:calendar_widget/calendar_logic.dart';
 
 
 class MonthCalendar extends StatefulWidget {
   MonthCalendar({
     Key? key,
-    // required this.focused,
     this.offset = DateTime.monday,
     this.minYear = 2010,
   }) : super(key: key);
 
-  // DateTime focused;
   final int offset;
   final int minYear;
 
@@ -22,7 +22,6 @@ class MonthCalendar extends StatefulWidget {
 class _MonthCalendarState extends State<MonthCalendar> {
   late int _currentPage;
   late List<String> weekDays;
-  late DateTime focused;
 
   @override
   void initState() {
@@ -112,7 +111,9 @@ class _MonthCalendarGridState extends State<MonthCalendarGrid> {
               return Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    print(date);
+                    if (date != null) {
+                      context.read<CalendarProvider>().updateFocusedDate(date);
+                    }
                   },
                   child: Container(
                     width: double.infinity,
