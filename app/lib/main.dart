@@ -14,13 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.lightGreen,
       ),
-      home: Scaffold(
-        appBar: AppBar(),
-        // bottomNavigationBar: BottomNavigationBar(),
-        body: Calendar(),
-      ),
+      home: Calendar(),
       scrollBehavior: AppScrollBehavior(),
     );
   }
