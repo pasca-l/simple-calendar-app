@@ -46,7 +46,7 @@ class _DayCalendarState extends State<DayCalendar> {
               },
               child: Stack(
                 children: [
-            
+
                   Timeline(
                     slotHeight: _slotHeight,
                     controller: _timelineCtrl,
@@ -85,31 +85,33 @@ class Timeline extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       controller: controller,
-      itemCount: 24,
+      itemCount: 25,
       itemBuilder: (context, index) {
         DateTime ref = context.watch<CalendarProvider>().focusedDate;
         String timeslot = DateFormat.Hm().format(
           DateTime(ref.year, ref.month, ref.day, index, 0)
         );
         
-        return Row(
-          children: [
-        
-            Container(
-              height: slotHeight,
-              alignment: Alignment.centerLeft,
-              child: Text(timeslot)
-            ),
-        
-            Expanded(
-              child: Divider(
-                color: Colors.black38,
-                indent: 5,
-                endIndent: 5,
+        return SizedBox(
+          height: slotHeight,
+          child: Row(
+            children: [
+          
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(timeslot)
               ),
-            ),
-        
-          ],
+          
+              Expanded(
+                child: Divider(
+                  color: Colors.black38,
+                  indent: 5,
+                  endIndent: 5,
+                ),
+              ),
+          
+            ],
+          ),
         );
       },
     );
@@ -164,8 +166,8 @@ class CurrentTimePointer extends StatelessWidget {
             ],
           ),
 
-          Container(
-            height: 1000,
+          SizedBox(
+            height: CalendarLogic().calcPointerEndPadding(slotHeight),
           )
     
         ],

@@ -61,9 +61,17 @@ class CalendarLogic {
     double position = 0.0;
     DateTime now = DateTime.now();
 
-    // 1440 minues in a day
-    position = (now.hour * 60 + now.minute) * slotHeight * 23 / 1440 + initPos;
+    position = slotHeight * (now.hour + now.minute / 60) + initPos;
 
     return position;
+  }
+
+  double calcPointerEndPadding(double slotHeight) {
+    double padding = 0.0;
+    double diff = 9.0;
+
+    padding = slotHeight * 24.5 - calcPointerPosition(slotHeight) + diff;
+
+    return padding;
   }
 }
