@@ -26,7 +26,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
   @override
   void initState() {
     super.initState();
-    weekDays = CalendarGenerator().buildWeekDays(widget.offset);
+    weekDays = CalendarLogic().buildWeekDays(widget.offset);
     _currentPage = (DateTime.now().year - widget.minYear) * 12 
                    + DateTime.now().month;
   }
@@ -98,7 +98,7 @@ class _MonthCalendarGridState extends State<MonthCalendarGrid> {
   @override
   void initState() {
     super.initState();
-    calendar = CalendarGenerator().buildMonthly(widget.date, widget.offset);
+    calendar = CalendarLogic().buildMonthly(widget.date, widget.offset);
   }
 
   @override

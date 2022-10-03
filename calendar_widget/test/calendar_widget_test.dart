@@ -6,7 +6,7 @@ void main() {
     test('Generate calendar dates for month 2022/01', () {
       final date = DateTime(2022, 1, 1);
       final offset = DateTime.monday;
-      final calendar = CalendarGenerator().buildMonthly(date, offset);
+      final calendar = CalendarLogic().buildMonthly(date, offset);
       expect(
         calendar,
         [

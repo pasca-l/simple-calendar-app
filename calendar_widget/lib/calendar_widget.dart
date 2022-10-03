@@ -6,32 +6,27 @@ import 'package:calendar_widget/calendar_provider.dart';
 import 'package:calendar_widget/month_calendar.dart';
 import 'package:calendar_widget/day_calendar.dart';
 
-class Calendar extends StatefulWidget {
+
+class Calendar extends StatelessWidget {
   const Calendar({Key? key}) : super(key: key);
 
   @override
-  State<Calendar> createState() => _CalendarState();
-}
-
-class _CalendarState extends State<Calendar> {
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CalendarAppBar(),
-      body: SafeArea(
-        top: true,
-        bottom: true,
-        left: true,
-        right: true,
-        child: ChangeNotifierProvider(
-          create: (_) => CalendarProvider(),
+    return ChangeNotifierProvider(
+      create: (_) => CalendarProvider(),
+      child: Scaffold(
+        appBar: CalendarAppBar(),
+        body: SafeArea(
+          top: true,
+          bottom: true,
+          left: true,
+          right: true,
           child: CalendarPage(),
-        )
+        ),
       ),
     );
   }
 }
-
 
 class CalendarAppBar extends StatefulWidget implements PreferredSizeWidget {
   const CalendarAppBar({Key? key})
@@ -50,25 +45,27 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
     return AppBar(
       title: Text("Calendar"),
       actions: [
+
+        IconButton(
+          onPressed: () {
+            context.read<CalendarProvider>().toggleDayCalendar();
+          },
+          icon: Icon(Icons.view_day),
+        ),
+
         IconButton(
           onPressed: () {},
           icon: Icon(Icons.search),
         ),
+
       ],
     );
   }
 }
 
 
-class CalendarPage extends StatefulWidget {
+class CalendarPage extends StatelessWidget {
   const CalendarPage({Key? key}) : super(key: key);
-
-  @override
-  State<CalendarPage> createState() => _CalendarPageState();
-}
-
-class _CalendarPageState extends State<CalendarPage> {
-  bool _viewDay = false;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +75,7 @@ class _CalendarPageState extends State<CalendarPage> {
         MonthCalendar(),
 
         Visibility(
-          visible: _viewDay,
+          visible: context.watch<CalendarProvider>().viewDay,
           child: DayCalendar(),
         ),
     
@@ -103,11 +100,7 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
     
               TextButton(
-                onPressed: () {
-                  setState(() {
-                    _viewDay = !_viewDay;
-                  });
-                },
+                onPressed: () {},
                 child: Text("Other"),
               ),
     

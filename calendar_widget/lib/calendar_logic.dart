@@ -1,4 +1,4 @@
-class CalendarGenerator {
+class CalendarLogic {
   List<String> buildWeekDays(int offset) {
     final Map<int, String> weekDays = {
       1 : 'Mon',
@@ -54,5 +54,16 @@ class CalendarGenerator {
     }
 
     return calendar;
+  }
+
+  double calcPointerPosition(double slotHeight) {
+    double initPos = 17.0;
+    double position = 0.0;
+    DateTime now = DateTime.now();
+
+    // 1440 minues in a day
+    position = (now.hour * 60 + now.minute) * slotHeight * 23 / 1440 + initPos;
+
+    return position;
   }
 }
