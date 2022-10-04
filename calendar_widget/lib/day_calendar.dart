@@ -133,6 +133,7 @@ class CurrentTimePointer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: controller,
+      physics: ClampingScrollPhysics(),
       child: Column(
         children: [
       
@@ -140,30 +141,34 @@ class CurrentTimePointer extends StatelessWidget {
             height: CalendarLogic().calcPointerPosition(slotHeight),
           ),
       
-          Row(
-            children: [
-            
-              SizedBox(
-                width: 40,
-              ),
+          Opacity(
+            opacity: context.watch<CalendarProvider>().focusedDate.day 
+                     == DateTime.now().day ? 1.0 : 0.0,
+            child: Row(
+              children: [
               
-              Container(
-                width: 10,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
+                SizedBox(
+                  width: 40,
                 ),
-              ),
                 
-              Expanded(
-                child: Divider(
-                  color: Colors.red,
-                  endIndent: 5,
+                Container(
+                  width: 10,
+                  height: 10,
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.circle,
+                  ),
                 ),
-              ),
-                
-            ],
+                  
+                Expanded(
+                  child: Divider(
+                    color: Colors.red,
+                    endIndent: 5,
+                  ),
+                ),
+                  
+              ],
+            ),
           ),
 
           SizedBox(
