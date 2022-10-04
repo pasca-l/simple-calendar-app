@@ -57,8 +57,6 @@ class _DayCalendarState extends State<DayCalendar> {
                     controller: _pointerCtrl,
                   ),
             
-                  // Text("test"),
-            
                 ],
               ),
             ),

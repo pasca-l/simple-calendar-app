@@ -20,13 +20,13 @@ class MonthCalendar extends StatefulWidget {
 }
 
 class _MonthCalendarState extends State<MonthCalendar> {
+  late List<String> _weekDays;
   late int _currentPage;
-  late List<String> weekDays;
 
   @override
   void initState() {
     super.initState();
-    weekDays = CalendarLogic().buildWeekDays(widget.offset);
+    _weekDays = CalendarLogic().buildWeekDays(widget.offset);
     _currentPage = (DateTime.now().year - widget.minYear) * 12 
                    + DateTime.now().month;
   }
@@ -42,7 +42,7 @@ class _MonthCalendarState extends State<MonthCalendar> {
     
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: weekDays.map((weekday) {
+            children: _weekDays.map((weekday) {
               return Expanded(
                 child: Container(
                   decoration: BoxDecoration(border: Border.all()),
@@ -93,18 +93,18 @@ class MonthCalendarGrid extends StatefulWidget {
 }
 
 class _MonthCalendarGridState extends State<MonthCalendarGrid> {
-  late List<List<DateTime?>> calendar;
+  late List<List<DateTime?>> _calendar;
 
   @override
   void initState() {
     super.initState();
-    calendar = CalendarLogic().buildMonthly(widget.date, widget.offset);
+    _calendar = CalendarLogic().buildMonthly(widget.date, widget.offset);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: calendar.map((week) {
+      children: _calendar.map((week) {
         return Expanded(
           child: Row(
             children: week.map((date) {
