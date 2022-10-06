@@ -8,12 +8,12 @@ import 'package:calendar_widget/calendar_logic.dart';
 class MonthCalendar extends StatefulWidget {
   MonthCalendar({
     Key? key,
-    this.offset = DateTime.monday,
     this.minYear = 2010,
+    this.offset = DateTime.monday,
   }) : super(key: key);
 
-  final int offset;
   final int minYear;
+  final int offset;
 
   @override
   State<MonthCalendar> createState() => _MonthCalendarState();
@@ -82,7 +82,7 @@ class MonthCalendarGrid extends StatefulWidget {
   const MonthCalendarGrid({
     Key? key,
     required this.date,
-    this.offset = DateTime.monday,
+    required this.offset,
   }) : super(key: key);
 
   final DateTime date;
@@ -119,7 +119,9 @@ class _MonthCalendarGridState extends State<MonthCalendarGrid> {
                     width: double.infinity,
                     height: double.infinity,
                     decoration: BoxDecoration(border: Border.all()),
-                    child: date == null ? Text("") : Text(date.day.toString()),
+                    child: MonthEvent(
+                      date: date
+                    ),
                   )
                 )
               );
@@ -128,5 +130,35 @@ class _MonthCalendarGridState extends State<MonthCalendarGrid> {
         );
       }).toList(),
     );
+  }
+}
+
+
+class MonthEvent extends StatelessWidget {
+  const MonthEvent({
+    super.key,
+    required this.date,
+  });
+
+  final DateTime? date;
+
+  @override
+  Widget build(BuildContext context) {
+    if (date == null) {
+      return Text("");
+    }
+    else {
+      return Column(
+        children: [
+
+          Text(date!.day.toString()),
+
+          // StreamBuilder(
+          //   stream: ,
+          // )
+
+        ],
+      );
+    }
   }
 }
